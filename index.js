@@ -1,12 +1,11 @@
-let primeraVariable = prompt("Inserte un número", 0)
-let segundaVariable = prompt("Inserte otro número", 0)
-showMessage(primeraVariable, segundaVariable)
+let number = prompt("Inserte un número", 0);
+isPrime(number) ? alert(`${number} es primo`) : alert(`${number} no es primo`);
 
-function showMessage(primeraVariable, segundaVariable){
-    let parsedPrimera = parseFloat(primeraVariable);
-    let parsedSegunda = parseFloat(segundaVariable);
-    if(!isNaN(parsedPrimera) || !isNaN(parsedSegunda))
-        alert(`Los números multiplicados son ${parsedPrimera*parsedSegunda}`)
-    else
-        alert(`Los datos ingresados no son válidos`)
+function isPrime(num) {
+    let parsedNum = parseFloat(num);
+    if(!isNaN(parsedNum)){
+        for(var i = 2; i < num; i++)
+            if(num % i === 0) return false;
+        return true;
+    }
 }
