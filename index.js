@@ -1,6 +1,6 @@
-let depositButton = document.getElementById("deposit")
-let withdrawButton = document.getElementById("withdraw")
-let accoutMoney = document.getElementById("money")
+let depositButton = document.getElementById("deposit");
+let withdrawButton = document.getElementById("withdraw");
+let accoutMoney = document.getElementById("money");
 begin();
 
 const isValid = (number) => !isNaN(number) && number >= 0
