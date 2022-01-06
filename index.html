@@ -4,12 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <title>Banco</title>
 </head>
-<body>
-    <h1 id="money"></h1>
-    <button id="deposit">Depositar</button>
-    <button id="withdraw">Extraer</button>
+<body class="w-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="w-75 d-flex flex-column justify-content-center align-items-center">
+        <p class="display-3" id="money"></p>
+        <div class="w-100 d-flex flex-row justify-content-center align-items-center">
+            <button type="button" class="btn btn-primary w-25" id="deposit">Depositar</button>
+            <button type="button" class="btn btn-primary w-25" id="withdraw">Extraer</button>
+        </div>
+        
+    </div>
+    <div id="card" class="bg-warning w-25 p-2 mt-3 rounded">
+        <p class="h3" id="cardNumber"></p>
+        <p id="cardExp"></p>
+        <p id="cardName"></p>
+        <button type="button" class="btn btn-dark w-100" id="pay">pagar</button>
+    </div>
     <script src="index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
