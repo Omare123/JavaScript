@@ -23,25 +23,49 @@ function askName(){
     name && lastName ? null : document.location.reload()
     return `${toCapitalize(name)} ${toCapitalize(lastName)}`
 }
-function printCard(){
+function createCard(){
     let personalCard = new Card(username)
     cards.push(personalCard)
-    let cardsDiv = document.getElementById("cards")
-    let cardExpiration = document.createElement("p").innerText = `desde ${personalCard.emitionDate.getMonth() + 1}/${personalCard.emitionDate.getFullYear()}    hasta ${personalCard.expirationDate.getMonth() + 1}/${personalCard.expirationDate.getFullYear()}`
-    let tag = document.createElement("div")
-    tag.innerHTML =
-     `<p class="h3" id="cardNumber">${personalCard.number}</p>
-    <p>${cardExpiration}</p>
-    <p>${personalCard.name}</p>
-    <button type="button" class="btn btn-dark w-100" id="${personalCard.number}">pagar</button>`;
-    tag.setAttribute("class","w-25 bg-warning p-2 mt-3 rounded");
-    cardsDiv.appendChild(tag);
-    var payButton = document.getElementById(personalCard.number.toString());
-    payButton.addEventListener("click", () => personalCard.executePayment(accoutMoney))
+    sortCards()
+    printCards()
 }
+
+function sortCards (){
+    var n, i, k, aux;
+    n = cards.length;
+    for (k = 1; k < n; k++) {
+        for (i = 0; i < (n - k); i++) {
+            if (cards[i].number > cards[i + 1].number) {
+                aux = cards[i];
+                cards[i] = cards[i + 1];
+                cards[i + 1] = aux;
+            }
+        }
+    }
+}
+
+function printCards(){
+    let cardsDiv = document.getElementById("cards")
+    cardsDiv.innerHTML = ''
+    cards.forEach(card => {
+        let cardExpiration = document.createElement("p").innerText = `desde ${card.emitionDate.getMonth() + 1}/${card.emitionDate.getFullYear()}    hasta ${card.expirationDate.getMonth() + 1}/${card.expirationDate.getFullYear()}`
+        let tag = document.createElement("div")
+        tag.innerHTML =
+         `<p class="h3" id="cardNumber">${card.number}</p>
+        <p>${cardExpiration}</p>
+        <p>${card.name}</p>
+        <button type="button" class="btn btn-dark w-100" id="${card.number}">pagar</button>`;
+        tag.setAttribute("class","w-25 bg-warning p-2 mt-3 rounded");
+        cardsDiv.appendChild(tag);
+        var payButton = document.getElementById(card.number.toString());
+        payButton.addEventListener("click", () => card.executePayment(accoutMoney))
+    })
+    
+}
+
 function setCard(){
     if(cardsLimit())
-        printCard()
+        createCard()
     else
         alert("Llegaste a tu límite de tarjetas")
 }
