@@ -1,27 +1,32 @@
-import Card from "./card.js"
+import Card from "./models/card.js"
+import toCapitalize from "./helpers/capitalize.js"
 let depositButton = document.getElementById("deposit")
+let logoutButton = document.getElementById("logout")
 let withdrawButton = document.getElementById("withdraw")
 let accoutMoney = document.getElementById("money")
-let cardButton = document.getElementById("cardButton").addEventListener("click", setCard)
+document.getElementById("cardButton").addEventListener("click", setCard)
 let username = ""
 let cards = []
 
 const isValidNumber = (number) => !isNaN(number) && number >= 0
 const cardsLimit = () => cards.length < 3
-const toCapitalize = (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+const goLogin = () => window.location.replace("./pages/login.html")
 
 begin();
 function begin() {
-    accoutMoney.innerText = 1000
+    accoutMoney.innerText = 10000
     withdrawButton.addEventListener("click", withdraw)
     depositButton.addEventListener("click", deposit)
-    username = askName()
+    logoutButton.addEventListener("click", logout)
+    askName()
 }
 function askName(){
-    let name = prompt("¿Cuál es su nombre?")
-    let lastName = prompt("¿Cuál es su apellido?")
-    name && lastName ? null : document.location.reload()
-    return `${toCapitalize(name)} ${toCapitalize(lastName)}`
+    let firstName = localStorage.getItem('firstName');
+    let lastName = localStorage.getItem('lastName');
+    if(!firstName || !lastName)
+        goLogin()
+    else
+        username = `${firstName} ${lastName}`
 }
 function createCard(){
     let personalCard = new Card(username)
@@ -55,7 +60,7 @@ function printCards(){
         <p>${cardExpiration}</p>
         <p>${card.name}</p>
         <button type="button" class="btn btn-dark w-100" id="${card.number}">pagar</button>`;
-        tag.setAttribute("class","w-25 bg-warning p-2 mt-3 rounded");
+        tag.setAttribute("class","w-10 bg-warning p-2 mt-3 rounded");
         cardsDiv.appendChild(tag);
         var payButton = document.getElementById(card.number.toString());
         payButton.addEventListener("click", () => card.executePayment(accoutMoney))
@@ -91,3 +96,7 @@ function deposit() {
         alert("Número invalido")
 }
 
+function logout() {
+    localStorage.clear();
+    goLogin()
+}
