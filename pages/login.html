@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Login</title>
+</head>
+<body class="w-100 m-0 h-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="w-75 h-50 mb-3 bg-warning rounded d-flex flex-column justify-content-center align-items-center">
+        <p class="text-danger" id="error"></p>
+        <div class="input-group mb-3 w-25">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Nombre</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" id="nombre" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3 w-25">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Apellido</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Apellido" aria-label="Apellido" id="apellido" aria-describedby="basic-addon1">
+        </div>
+        <button type="button" class="btn btn-secondary w-25 mt-3" id="login">Login</button>
+    </div>
+
+    <scripts>
+        <script type="module" src="login.js"></script>
+        <script type="module" src="../helpers/capitalize.js"></script>
+    </scripts>
+</body>
+</html>
