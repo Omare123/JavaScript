@@ -1,11 +1,13 @@
 import Card from "./models/card.js"
-import toCapitalize from "./helpers/capitalize.js"
+var datos = await fetch("./datos.json")
+.then(response => {
+   return response.json();
+}).then(jsondata => jsondata);
 let depositButton = document.getElementById("deposit")
 let logoutButton = document.getElementById("logout")
 let withdrawButton = document.getElementById("withdraw")
 let accoutMoney = document.getElementById("money")
 document.getElementById("cardButton").addEventListener("click", setCard)
-let username = ""
 let cards = []
 
 const isValidNumber = (number) => !isNaN(number) && number >= 0
@@ -14,7 +16,7 @@ const goLogin = () => window.location.replace("./pages/login.html")
 
 begin();
 function begin() {
-    accoutMoney.innerText = 10000
+    accoutMoney.innerText = datos.dinero
     withdrawButton.addEventListener("click", withdraw)
     depositButton.addEventListener("click", deposit)
     logoutButton.addEventListener("click", logout)
@@ -25,11 +27,13 @@ function askName(){
     let lastName = localStorage.getItem('lastName');
     if(!firstName || !lastName)
         goLogin()
-    else
-        username = `${firstName} ${lastName}`
+    else{
+        datos.nombre = firstName
+        datos.apellido = lastName
+    }
 }
 function createCard(){
-    let personalCard = new Card(username)
+    let personalCard = new Card(datos.nombre, datos.apellido)
     cards.push(personalCard)
     sortCards()
     printCards()

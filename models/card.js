@@ -1,6 +1,6 @@
 export default class Card{
-    constructor(name){
-        this.name = name
+    constructor(name, lastname){
+        this.name = `${name} ${lastname}`
         this.number = "4832 6687 3457 " + Math.floor(Math.random() * (9999 - 999 + 1) + 999).toString()
         this.emitionDate = new Date();
         this.expirationDate = this.getExpirationDate(this.emitionDate)
