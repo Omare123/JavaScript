@@ -1,4 +1,8 @@
+import toCapitalize from "./helpers/capitalize.js";
+import Account from "./models/account.js";
 import Card from "./models/card.js"
+import showError from "./helpers/showErrors.js";
+import isValidNumber from "./helpers/isValidNumber.js";
 var datos = await fetch("./datos.json")
 .then(response => {
    return response.json();
@@ -9,18 +13,62 @@ let withdrawButton = document.getElementById("withdraw")
 let accoutMoney = document.getElementById("money")
 document.getElementById("cardButton").addEventListener("click", setCard)
 let cards = []
+let account = new Account();
 
-const isValidNumber = (number) => !isNaN(number) && number >= 0
 const cardsLimit = () => cards.length < 3
 const goLogin = () => window.location.replace("./pages/login.html")
 
 begin();
 function begin() {
-    accoutMoney.innerText = datos.dinero
-    withdrawButton.addEventListener("click", withdraw)
-    depositButton.addEventListener("click", deposit)
+    $("#dollars").click(buyDollars)
+    withdrawButton.addEventListener("click", () =>{
+        account.withdraw()
+        showAccount()
+    })
+    depositButton.addEventListener("click", () => {
+        account.deposit()
+        showAccount()
+    })
     logoutButton.addEventListener("click", logout)
+    $('#errors').hide()
     askName()
+    showAccount()
+}
+function buyDollars(){
+    let amount = parseFloat(prompt("¿Cuánto dinero desea comprar?", 0))
+    if(isValidNumber(amount)){
+        let buy = account.buyDollars(amount)
+        if(buy){
+            if(buy === 2)
+                changeError()
+            else
+                showAccount()
+        }
+        else
+            showError("No tienes suficiente dinero para comprar")
+    }
+    else
+        showError("Numero invalido")
+}
+
+function changeError(){
+    showError("NO! Hubo un error y te cambiaron tu dinero por Bolivare Fuertes! Una moneda super devaluada y descontinuada")
+    showAccount()
+}
+
+function showAccount(){
+    accoutMoney.innerText = "";
+    for (var [key, value] of Object.entries(account)) {
+        if(value > 0){
+            let container = document.createElement("div")
+            let name = document.createElement("span").innerText = `${toCapitalize(key)}: `
+            let money = document.createElement("span").innerText = value
+            container.classList = "display-3 text-white"
+            container.append(name)
+            container.append(money)
+            accoutMoney.append(container)
+        }
+    }
 }
 function askName(){
     let firstName = localStorage.getItem('firstName');
@@ -54,20 +102,21 @@ function sortCards (){
 }
 
 function printCards(){
-    let cardsDiv = document.getElementById("cards")
-    cardsDiv.innerHTML = ''
+    
+    $('#cards').empty()
     cards.forEach(card => {
-        let cardExpiration = document.createElement("p").innerText = `desde ${card.emitionDate.getMonth() + 1}/${card.emitionDate.getFullYear()}    hasta ${card.expirationDate.getMonth() + 1}/${card.expirationDate.getFullYear()}`
-        let tag = document.createElement("div")
-        tag.innerHTML =
-         `<p class="h3" id="cardNumber">${card.number}</p>
+        let cardExpiration = `desde ${card.emitionDate.getMonth() + 1}/${card.emitionDate.getFullYear()}    hasta ${card.expirationDate.getMonth() + 1}/${card.expirationDate.getFullYear()}`
+        $('#cards').append(`<div class="w-10 bg-warning p-2 mt-3 rounded" id=${card.number.toString()}>
+        <p class="h3">${card.number}</p>
         <p>${cardExpiration}</p>
         <p>${card.name}</p>
-        <button type="button" class="btn btn-dark w-100" id="${card.number}">pagar</button>`;
-        tag.setAttribute("class","w-10 bg-warning p-2 mt-3 rounded");
-        cardsDiv.appendChild(tag);
-        var payButton = document.getElementById(card.number.toString());
-        payButton.addEventListener("click", () => card.executePayment(accoutMoney))
+        <button type="button" class="btn btn-dark w-100" id="${card.number}-button">pagar</button>
+        </div>`);
+        let cardButton = document.getElementById(`${card.number.toString()}-button`)
+        cardButton.addEventListener("click", () =>{
+            account.pesos =  card.executePayment(account.pesos)
+            showAccount()
+        })
     })
     
 }
@@ -76,28 +125,7 @@ function setCard(){
     if(cardsLimit())
         createCard()
     else
-        alert("Llegaste a tu límite de tarjetas")
-}
-
-function withdraw() {
-    let withdraw = parseFloat(prompt("¿Cuánto dinero desea extraer?", 0))
-    if(isValidNumber(withdraw)){
-        if(withdraw <= accoutMoney.innerText)
-            accoutMoney.innerText -= withdraw
-        else
-            alert("No hay suficiente dinero en tu cuenta")
-    }
-    else
-        alert("Numero invalido")
-    
-}
-
-function deposit() {
-    let deposit = parseFloat(prompt("¿Cuánto dinero desea depositar?", 0))
-    if(isValidNumber(deposit))
-        accoutMoney.innerText = parseFloat(accoutMoney.innerText) + deposit
-    else
-        alert("Número invalido")
+        showError("Llegaste a tu límite de tarjetas")
 }
 
 function logout() {
