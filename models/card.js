@@ -1,3 +1,4 @@
+import showError from "../helpers/showErrors.js";
 export default class Card{
     constructor(name, lastname){
         this.name = `${name} ${lastname}`
@@ -13,12 +14,14 @@ export default class Card{
     executePayment (accoutMoney){
         let amount = parseFloat(prompt("¿Cuánto dinero desea pagar?", 0))
         if(!isNaN(amount) && amount >= 0){
-            if(amount <= accoutMoney.innerText)
-                accoutMoney.innerText -= amount
+            if(amount <= accoutMoney)
+                return accoutMoney - amount
             else
-                alert("No hay suficiente dinero en tu cuenta")
+                showError("No hay suficiente dinero en tu cuenta")
         }
         else
-            alert("Numero invalido")
+            showError("Número inválido")
+
+        return accoutMoney
     }
 }

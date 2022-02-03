@@ -1,5 +1,4 @@
 import toCapitalize from "../helpers/capitalize.js"
-// localStorage.clear();
 let firstName = document.getElementById("nombre");
 let lastName = document.getElementById("apellido");
 let error = document.getElementById("error");
