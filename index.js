@@ -102,23 +102,24 @@ function sortCards (){
 }
 
 function printCards(){
-    
+    $('#cards').hide()
     $('#cards').empty()
     cards.forEach(card => {
         let cardExpiration = `desde ${card.emitionDate.getMonth() + 1}/${card.emitionDate.getFullYear()}    hasta ${card.expirationDate.getMonth() + 1}/${card.expirationDate.getFullYear()}`
-        $('#cards').append(`<div class="w-10 bg-warning p-2 mt-3 rounded" id=${card.number.toString()}>
+        $('#cards').append(`<div class="w-10 bg-warning p-2 mt-3 rounded" id=${card.number}>
         <p class="h3">${card.number}</p>
         <p>${cardExpiration}</p>
         <p>${card.name}</p>
         <button type="button" class="btn btn-dark w-100" id="${card.number}-button">pagar</button>
         </div>`);
+        
         let cardButton = document.getElementById(`${card.number.toString()}-button`)
         cardButton.addEventListener("click", () =>{
             account.pesos =  card.executePayment(account.pesos)
             showAccount()
         })
     })
-    
+    $('#cards').fadeIn()
 }
 
 function setCard(){
