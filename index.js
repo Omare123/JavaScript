@@ -53,6 +53,7 @@ function buyDollars(){
 
 function changeError(){
     showError("NO! Hubo un error y te cambiaron tu dinero por Bolivare Fuertes! Una moneda super devaluada y descontinuada")
+    $("#moneyBackground").removeClass("bg-warning").addClass("bg-danger")
     showAccount()
 }
 

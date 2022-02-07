@@ -14,18 +14,18 @@
     <title>Banco</title>
 </head>
 
-<body class=" d-flex flex-column justify-content-center align-items-center">
+<body class="bg-light d-flex flex-column justify-content-center align-items-center">
     <div class="w-75 m-0 h-10 rounded d-flex flex-column justify-content-center align-items-end">
         <button type="button" class="btn btn-light w-10 mr-2" id="logout">Cerrar Sesión</button>
     </div>
-    <div class="w-75 min-vh-25 bg-warning rounded d-flex flex-column justify-content-center align-items-center">
+    <div class="w-75 min-vh-25 bg-warning rounded d-flex flex-column justify-content-center align-items-center" id="moneyBackground">
         <div class="d-flex flex-column justify-content-center align-items-center" id="money"></div>
-        <div class="w-100 d-flex flex-row justify-content-center align-items-center">
-            <button type="button" class="btn btn-secondary mw-25 mr-2" id="deposit">Depositar</button>
-            <button type="button" class="btn btn-secondary mw-25 ml-2" id="withdraw">Extraer</button>
-            <div>
-                <button type="button" class="btn btn-secondary mw-25 ml-2" id="dollars">Comprar dólares</button>
+        <div class="w-100 d-flex flex-column justify-content-center align-items-center">
+            <div class="w-100  d-flex justify-content-center align-items-center mb-2">
+                <button type="button" class="btn btn-secondary w-25 mr-2" id="deposit">Depositar</button>
+                <button type="button" class="btn btn-secondary w-25 ml-2" id="withdraw">Extraer</button>
             </div>
+            <button type="button" class="btn btn-secondary mw-25 ml-2" id="dollars">Comprar dólares</button>
         </div>
 
     </div>
