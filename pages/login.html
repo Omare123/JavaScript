@@ -14,19 +14,22 @@
         <p id="errors"></p>
         <div class="input-group mb-3 w-25">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Nombre</span>
+                <span class="input-group-text" id="basic-addon1">Mail</span>
             </div>
-            <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" id="nombre" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" placeholder="Mail" aria-label="Nombre" id="mail" aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3 w-25">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Apellido</span>
+                <span class="input-group-text" id="basic-addon1">Contraseña</span>
             </div>
-            <input type="text" class="form-control" placeholder="Apellido" aria-label="Apellido" id="apellido" aria-describedby="basic-addon1">
+            <input type="password" class="form-control" placeholder="Contraseña" aria-label="Apellido" id="password" aria-describedby="basic-addon1">
         </div>
         <button type="button" class="btn btn-secondary w-25 mt-3" id="login">Login</button>
     </div>
-
+    <div class="w-75 mb-3 rounded d-flex flex-column justify-content-center align-items-end">
+        <button type="button" class="btn btn-light" id="help">AYUDA</button>
+        <span id="helpInfo"></span>
+    </div>
     <scripts>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script type="module" src="login.js"></script>
