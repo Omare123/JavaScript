@@ -6,7 +6,7 @@ document.getElementById("login").addEventListener("click", login)
 document.getElementById("help").addEventListener("click", showHelp)
 let url = 'https://www.mecallapi.com/api/login'
 $('#helpInfo').hide()
-
+$('#loader').attr('style','display:none !important');
 
 function login(){
     if(mail.value && password.value){
@@ -17,20 +17,22 @@ function login(){
         getData(url, data).then(response => {
             localStorage.setItem('firstName', toCapitalize(response.user.fname));
             localStorage.setItem('lastName', toCapitalize(response.user.lname));   
-            window.location.replace("../index.html")         
+            window.location.replace("../index.html")  
+            $('#loader').show()   
         }).catch(err => {
-           showError("Alguno de los datos es invalido")
+            showError("Alguno de los datos es invalido")
+            $('#loader').attr('style','display:none !important'); 
         })
         
     }
     else{
-        if(!firstName.value){
-            showError("El nombre es un campo requerido")
+        if(!mail.value){
+            showError("El mail es un campo requerido")
         }
         else
-            showError("El apellido es un campo requerido")
+            showError("La contraseña es un campo requerido")
     }
-        
+    
 }
 
 function showHelp(){
@@ -38,7 +40,9 @@ function showHelp(){
     $('#helpInfo').toggle()
 }
 
+
 function getData(ajaxurl, data) { 
+    $('#loader').show()
     return $.ajax({
       url: ajaxurl,
       type: 'POST',
